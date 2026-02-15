@@ -50,9 +50,8 @@ config.colors = {
 config.window_decorations = 'RESIZE'
 config.window_background_opacity = 1.0
 
--- Cursor retangular roxo piscando
-config.default_cursor_style = 'BlinkingBlock'
-config.cursor_blink_rate = 700
+-- Cursor retangular roxo SEM piscar
+config.default_cursor_style = 'SteadyBlock'
 config.cursor_thickness = 3
 config.force_reverse_video_cursor = false
 
