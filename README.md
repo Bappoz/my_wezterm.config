@@ -2,7 +2,13 @@
 
 Configuração personalizada do WezTerm para Windows com WSL Ubuntu e Fish Shell.
 
-## Tema
+## 📸 Screenshot
+
+![WezTerm Screenshot](assets/screenshot.png)
+
+> Adicione uma captura de tela do seu terminal em `assets/screenshot.png`
+
+## 🎨 Tema
 
 - **Catppuccin Macchiato** - Background escuro (`#1e2030`)
 - **Cursor**: Retangular roxo (`#C6A0F6`)
