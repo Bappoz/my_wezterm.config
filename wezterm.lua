@@ -1,6 +1,26 @@
 -- ============================================================================
 -- WezTerm Configuration
 -- ============================================================================
+-- CONFIGURAÇÃO COMPLETA E FUNCIONAL
+-- 
+--  Fish shell no WSL Ubuntu
+--  Tema Catppuccin Macchiato
+--  Fonte JetBrains Mono Nerd Font
+--  Tabs estilizadas com ícones e git branch
+--  Status bar com usuário, data e hora
+--  Atalhos de teclado customizados
+-- 
+-- Para configurar o Fish no Ubuntu WSL:
+-- 1. Abra o WezTerm com Fish
+-- 2. Execute: mkdir -p ~/.config/fish
+-- 3. Execute: cp /mnt/c/Users/landr/.config/fish/config.fish ~/.config/fish/
+-- 4. Execute: source ~/.config/fish/config.fish
+-- 
+-- ATALHOS ÚTEIS:
+--   Ctrl+Shift+P  - Paleta de comandos (trocar tema, fonte, etc)
+--   Ctrl+Shift+L  - Debug overlay
+--   Botão direito no "+" - Menu de shells
+-- ============================================================================
 local wezterm = require 'wezterm'
 local config = {}
 
@@ -38,26 +58,37 @@ config.tab_max_width = 25
 -- ============================================================================
 -- APARÊNCIA
 -- ============================================================================
--- Background mais escuro (Catppuccin Crust - mais escuro que Mantle)
+-- Cores customizadas (override do tema)
 config.colors = {
-  background = '#181926',  -- Crust (mais escuro)
+  background = '#181926',  -- Catppuccin Crust (mais escuro que Mantle)
   cursor_bg = '#C6A0F6',   -- Roxo Mauve
-  cursor_fg = '#181926',   -- Texto do cursor igual ao fundo
-  cursor_border = '#C6A0F6', -- Borda roxa
+  cursor_fg = '#181926',
+  cursor_border = '#C6A0F6',
 }
 
--- Remover barra de título do Windows
+config.initial_cols = 120
+config.initial_rows = 30
+
+-- Janela sem barra de título do Windows
 config.window_decorations = 'RESIZE'
 config.window_background_opacity = 1.0
+config.window_padding = { left = 8, right = 8, top = 8, bottom = 8 }
 
 -- Cursor retangular roxo SEM piscar
 config.default_cursor_style = 'SteadyBlock'
 config.cursor_thickness = 3
 config.force_reverse_video_cursor = false
 
--- Scrollbar e padding
-config.enable_scroll_bar = true
-config.window_padding = { left = 8, right = 8, top = 8, bottom = 8 }
+-- Scrollbar
+config.enable_scroll_bar = false
+
+-- Configurações visuais adicionais
+config.bold_brightens_ansi_colors = "BrightAndBold"
+config.hide_mouse_cursor_when_typing = true
+config.window_close_confirmation = 'NeverPrompt'
+
+-- Status bar sempre visível
+config.status_update_interval = 1000
 
 -- ============================================================================
 -- WSL DOMAINS
@@ -88,15 +119,55 @@ config.launch_menu = {
   },
 }
 
+
+local act = wezterm.action
+
+config.keys = {
+  -- 1. Dividir Horizontalmente (Lado a Lado)
+  {
+    key = 'v',
+    mods = 'CTRL|SHIFT',
+    action = act.SplitHorizontal { domain = 'CurrentPaneDomain' },
+  },
+  -- 2. Dividir Verticalmente (Cima e Baixo)
+  {
+    key = 'h',
+    mods = 'CTRL|SHIFT',
+    action = act.SplitVertical { domain = 'CurrentPaneDomain' },
+  },
+  { 
+    key = 'f', 
+    mods = 'CTRL|SHIFT', 
+    action = wezterm.action.ToggleFullScreen },
+
+}
+
 -- ============================================================================
--- EVENTOS PERSONALIZADOS
+-- CARREGAR MÓDULOS EXTRAS (se disponíveis)
 -- ============================================================================
+-- Eventos reativados gradualmente com proteção contra erros
 pcall(function()
-  local events = require("events")
-  if events.setup then
+  -- Adicionar caminho do módulo
+  local config_path = wezterm.home_dir .. '/.config/wezterm'
+  package.path = package.path .. ';' .. config_path .. '/?.lua'
+  package.path = package.path .. ';' .. config_path .. '/?/init.lua'
+  
+  -- Carregar eventos (com proteções individuais dentro)
+  local has_events, events = pcall(require, "events")
+  if has_events and events.setup then
     events.setup(config)
+  end
+  
+  -- Carregar mappings (atalhos de teclado)
+  local has_mappings, mappings = pcall(require, "mappings")
+  if has_mappings and mappings then
+    if mappings.keys then
+      config.keys = mappings.keys
+    end
+    if mappings.key_tables then
+      config.key_tables = mappings.key_tables
+    end
   end
 end)
 
 return config
-
