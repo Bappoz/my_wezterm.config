@@ -38,26 +38,27 @@ config.tab_max_width = 25
 -- ============================================================================
 -- APARÊNCIA
 -- ============================================================================
--- Background mais escuro (Catppuccin Mantle)
+-- Background mais escuro (Catppuccin Crust - mais escuro que Mantle)
 config.colors = {
-  background = '#1e2030',
-  cursor_bg = '#C6A0F6',
-  cursor_fg = '#1e2030',
-  cursor_border = '#C6A0F6',
+  background = '#181926',  -- Crust (mais escuro)
+  cursor_bg = '#C6A0F6',   -- Roxo Mauve
+  cursor_fg = '#181926',   -- Texto do cursor igual ao fundo
+  cursor_border = '#C6A0F6', -- Borda roxa
 }
 
--- Window decorations
+-- Remover barra de título do Windows
 config.window_decorations = 'RESIZE'
 config.window_background_opacity = 1.0
 
--- Cursor retangular roxo
+-- Cursor retangular roxo piscando
 config.default_cursor_style = 'BlinkingBlock'
-config.cursor_blink_rate = 500
-config.cursor_thickness = 2
+config.cursor_blink_rate = 700
+config.cursor_thickness = 3
 config.force_reverse_video_cursor = false
 
+-- Scrollbar e padding
 config.enable_scroll_bar = true
-config.window_padding = { left = 5, right = 5, top = 5, bottom = 5 }
+config.window_padding = { left = 8, right = 8, top = 8, bottom = 8 }
 
 -- ============================================================================
 -- WSL DOMAINS
