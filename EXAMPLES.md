@@ -4,7 +4,7 @@ Este arquivo contém exemplos completos das configurações necessárias para o 
 
 ---
 
-## 📄 Fish Shell Configuration
+## Fish Shell Configuration
 
 **Arquivo**: `~/.config/fish/config.fish` (dentro do WSL Ubuntu)
 
@@ -143,7 +143,7 @@ end
 
 ---
 
-## ⭐ Starship Configuration
+## Starship Configuration
 
 **Arquivo**: `~/.config/starship.toml` (dentro do WSL Ubuntu)
 
@@ -272,11 +272,13 @@ disabled = true
 ## 🚀 Como aplicar estas configurações
 
 ### 1. Instalar Starship (dentro do WSL Ubuntu)
+
 ```bash
 curl -sS https://starship.rs/install.sh | sh
 ```
 
 ### 2. Criar o arquivo config.fish
+
 ```bash
 mkdir -p ~/.config/fish
 nano ~/.config/fish/config.fish
@@ -284,6 +286,7 @@ nano ~/.config/fish/config.fish
 ```
 
 ### 3. Criar o arquivo starship.toml
+
 ```bash
 mkdir -p ~/.config
 nano ~/.config/starship.toml
@@ -291,13 +294,14 @@ nano ~/.config/starship.toml
 ```
 
 ### 4. Recarregar configurações
+
 ```bash
 source ~/.config/fish/config.fish
 ```
 
 ---
 
-## 📸 Resultado Esperado
+## Resultado Esperado
 
 ```
 username@diretório in ( branch !2 ?1)  node v20.0.0
@@ -305,6 +309,7 @@ username@diretório in ( branch !2 ?1)  node v20.0.0
 ```
 
 Onde:
+
 - **username@diretório** - usuário e pasta atual em cores
 - **in** - separador
 - **( branch)** - branch do git entre parênteses
